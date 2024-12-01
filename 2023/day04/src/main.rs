@@ -89,3 +89,4 @@ fn main() {
     part1(&input); // 21485
     part2(&input); // 11024379
 }
+
