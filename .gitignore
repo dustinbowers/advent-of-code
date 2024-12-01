@@ -1,4 +1,7 @@
 target/
 .DS_Store
 .idea
+venv/
 input_*.txt
+input.txt
+
