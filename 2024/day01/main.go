@@ -61,7 +61,7 @@ func part2(left []int, right []int) int {
 func main() {
 	filename := "input.txt"
 	if len(os.Args) == 2 {
-		filename = os.Args[0]
+		filename = os.Args[1]
 	}
 	if len(os.Args) > 2 {
 		log.Fatalf("%s: <filename>", os.Args[0])
