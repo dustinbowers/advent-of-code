@@ -33,17 +33,13 @@ func readInput(filename string) ([][]int, error) {
 }
 
 func isSafe(report []int) bool {
-	deltas := make([]int, len(report)-1)
-	for i := 1; i < len(report); i++ {
-		deltas[i-1] = report[i] - report[i-1]
-	}
 	c := 1
-	if deltas[0] < 0 {
+	if report[1]-report[0] < 0 {
 		c = -1
 	}
-	for _, d := range deltas {
-		d2 := c * d
-		if d2 < 1 || d2 > 3 {
+	for i := 1; i < len(report); i++ {
+		d := c * (report[i] - report[i-1])
+		if d < 1 || d > 3 {
 			return false
 		}
 	}

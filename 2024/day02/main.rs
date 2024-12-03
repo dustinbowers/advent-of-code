@@ -2,16 +2,14 @@
 use std::{env, fs};
 
 fn is_safe(report: &[i32]) -> bool {
-    let mut deltas = report.array_windows::<2>()
-        .map(|pair| pair[1] - pair[0])
-        .collect::<Vec<_>>();
-    if deltas[0] < 0 {
-        deltas = deltas.into_iter().map(|v| -1 * v).collect();
+    let mut c = 1;
+    if report[1] - report[0] < 0 {
+        c = -1;
     }
-
-    for &d in &deltas {
-        if d < 1 || d > 3 {
-           return false;
+    for i in 1..report.len() {
+        let v = c * (report[i] - report[i-1]);
+        if v < 1 || v > 3 {
+            return false
         }
     }
     true

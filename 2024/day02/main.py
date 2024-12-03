@@ -2,10 +2,13 @@ import argparse
 
 
 def is_safe(report):
-    deltas = [b - a for a, b in zip(report, report[1:])]
-    if deltas[0] < 0:
-        deltas = [-d for d in deltas]
-    return all(1 <= d <= 3 for d in deltas)
+    c = -1 if report[1] - report[0] < 0 else 1
+
+    for prev, curr in zip(report, report[1:]):
+        d = c * (curr - prev)
+        if d < 1 or d > 3:
+            return False
+    return True
 
 
 def solve(filename):
