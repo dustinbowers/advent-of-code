@@ -24,8 +24,6 @@ if __name__ == '__main__':
                         help="input filename", default="input.txt")
     args = parser.parse_args()
 
-    # p1 = part1(args.filename)
-    # p2 = part2(args.filename)
     p1, p2 = solve(args.filename)
 
     print(f"Part1: sum = {p1}")
