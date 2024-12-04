@@ -5,6 +5,7 @@ https://adventofcode.com/2024/day/2
 ## Part 1
 
 Each line is a "report" with "level" values. Return count of "safe" reports
+
 **Safe reports**:
 
 - The levels are either all **increasing** or all **decreasing**.
