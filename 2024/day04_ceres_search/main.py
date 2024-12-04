@@ -14,7 +14,6 @@ def get_diagonals_and_anti_diagonals(matrix):
 
 
 def read_input(filename):
-    input = []
     with open(filename, 'r') as file:
         input = [list(line.strip()) for line in file]
 
@@ -29,17 +28,9 @@ def read_input(filename):
 
 
 def part1(rows, cols, diag, anti_diag):
-    xmas_count = 0
-    pattern1 = "XMAS"
-    pattern2 = "SAMX"
-    xmas_count += len(re.findall(pattern1, rows))
-    xmas_count += len(re.findall(pattern2, rows))
-    xmas_count += len(re.findall(pattern1, cols))
-    xmas_count += len(re.findall(pattern2, cols))
-    xmas_count += len(re.findall(pattern1, diag))
-    xmas_count += len(re.findall(pattern2, diag))
-    xmas_count += len(re.findall(pattern1, anti_diag))
-    xmas_count += len(re.findall(pattern2, anti_diag))
+    total_input = " ".join([rows, cols, diag, anti_diag])
+    xmas_count = len(re.findall("XMAS", total_input))
+    xmas_count += len(re.findall("SAMX", total_input))
     return xmas_count
 
 
