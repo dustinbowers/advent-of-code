@@ -1,4 +1,3 @@
-import copy
 import argparse
 
 
@@ -63,8 +62,8 @@ def patrol(room, start_pos, obstacle=None):
 
 
 def find_patrol_cycles(patrolled_room, start_pos):
-    h = len(room) - 1
-    w = len(room[0]) - 1
+    h = len(room)
+    w = len(room[0])
 
     obstacles_that_cause_cycle = []
     for r in range(h):
