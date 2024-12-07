@@ -1,5 +1,4 @@
 import argparse
-import itertools
 
 
 def read_input(filename):
@@ -15,29 +14,66 @@ def read_input(filename):
     return calibrations
 
 
-def solve(calibrations, operations):
+def solve(calibrations, concat_enabled):
+    def backtrack(target, operands, current_index, current_value, expression, concat_enabled):
+        # Base
+        if current_index == len(operands):
+            if current_value == target:
+                return expression
+            return None
+
+        next_operand = operands[current_index]
+
+        result_add = backtrack(
+            target,
+            operands,
+            current_index + 1,
+            current_value + next_operand,
+            f"{expression} + {next_operand}",
+            concat_enabled)
+        if result_add:
+            return result_add
+
+        result_multiply = backtrack(
+            target,
+            operands,
+            current_index + 1,
+            current_value * next_operand,
+            f"{expression} * {next_operand}",
+            concat_enabled)
+        if result_multiply:
+            return result_multiply
+
+        if concat_enabled:
+            result_concat = backtrack(
+                target,
+                operands,
+                current_index + 1,
+                int(f"{current_value}{next_operand}"),
+                f"{expression} || {next_operand}",
+                concat_enabled)
+            if result_concat:
+                return result_concat
+
+        return None
+
     calibration_sum = 0
     for c in calibrations:
-        target, nums = c
-        ops = list(itertools.product(operations, repeat=len(nums)-1))
+        target, operands = c
 
-        for seq in ops:
-            cur = nums[0]
-            expression = str(cur)
-            actions = list(zip(seq, nums[1:]))
-            for action in actions:
-                match action[0]:
-                    case '*':
-                        cur *= action[1]
-                    case '+':
-                        cur += action[1]
-                    case '||':
-                        cur = int(f"{cur}{action[1]}")
-                expression = f"{expression} {action[0]} {action[1]}"
-            if cur == target:
-                print(f"found solution: {expression} = {cur}")
-                calibration_sum += cur
-                break
+        if len(operands) == 1:
+            if operands[0] == target:
+                calibration_sum += target
+            continue
+
+        res = backtrack(target,
+                        operands,
+                        1,
+                        operands[0],
+                        str(operands[0]),
+                        concat_enabled)
+        if res:
+            calibration_sum += c[0]
 
     return calibration_sum
 
@@ -52,8 +88,8 @@ if __name__ == '__main__':
     calibrations = read_input(args.filename)
 
     # Solve
-    p1 = solve(calibrations, ["*", "+"])
-    p2 = solve(calibrations, ["*", "+", "||"])
+    p1 = solve(calibrations, concat_enabled=False)
+    p2 = solve(calibrations, concat_enabled=True)
 
     print(f"\nPart1: {p1}")
-    print(f"Part2: {p2}\n")
+    print(f"Part2: {p2}")
