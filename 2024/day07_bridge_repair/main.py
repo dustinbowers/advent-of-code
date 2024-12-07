@@ -15,11 +15,15 @@ def read_input(filename):
 
 
 def solve(calibrations, concat_enabled):
-    def backtrack(target, operands, current_index, current_value, expression, concat_enabled):
+    def backtrack(target, operands, current_index, current_value, concat_enabled):
+        # Early out
+        if current_value > target:
+            return None
+
         # Base
         if current_index == len(operands):
             if current_value == target:
-                return expression
+                return True
             return None
 
         next_operand = operands[current_index]
@@ -29,7 +33,6 @@ def solve(calibrations, concat_enabled):
             operands,
             current_index + 1,
             current_value + next_operand,
-            f"{expression} + {next_operand}",
             concat_enabled)
         if result_add:
             return result_add
@@ -39,7 +42,6 @@ def solve(calibrations, concat_enabled):
             operands,
             current_index + 1,
             current_value * next_operand,
-            f"{expression} * {next_operand}",
             concat_enabled)
         if result_multiply:
             return result_multiply
@@ -50,7 +52,6 @@ def solve(calibrations, concat_enabled):
                 operands,
                 current_index + 1,
                 int(f"{current_value}{next_operand}"),
-                f"{expression} || {next_operand}",
                 concat_enabled)
             if result_concat:
                 return result_concat
@@ -70,7 +71,6 @@ def solve(calibrations, concat_enabled):
                         operands,
                         1,
                         operands[0],
-                        str(operands[0]),
                         concat_enabled)
         if res:
             calibration_sum += c[0]
