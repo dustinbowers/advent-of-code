@@ -1,3 +1,4 @@
 target/
-input*
+input_test.txt
+input.txt
 skip/
