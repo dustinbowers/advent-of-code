@@ -14,8 +14,11 @@ def read_input(filename):
     with open(filename, 'r') as file:
         r = 0
         for line in file:
+            # Find all antennas on line
             ants = [(line[m.start()], m.start())
                     for m in re.finditer("[^.]", line.strip())]
+
+            # Store the antenna 'frequency' and positions
             for a in ants:
                 antennas[a[0]].append((r, a[1]))
             r += 1
@@ -42,9 +45,13 @@ def part1(antennas, num_rows, num_cols):
 
 def part2(antennas, num_rows, num_cols):
     anti_nodes = set()
+
+    # Antennas are counted as anti_nodes
     for a, pts in antennas.items():
         for (r1, c1) in pts:
             anti_nodes.add((r1, c1))
+
+    # Project anti_nodes outward from each pair of similar frequency antennas
     for a, pts in antennas.items():
         for (r1, c1) in pts:
             for (r2, c2) in pts:
@@ -61,6 +68,8 @@ def part2(antennas, num_rows, num_cols):
 
 
 def print_map(antennas, anti_nodes, num_rows, num_cols):
+    """ Pretty-print a grid of nodes and anti_nodes
+    """
     grid = list(['.'] * num_cols for r in range(num_rows))
     for a in anti_nodes:
         grid[a[0]][a[1]] = '#'
