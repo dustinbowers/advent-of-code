@@ -29,12 +29,11 @@ def find_anti_node(r1, c1, r2, c2, multiple=1):
 def part1(antennas, num_rows, num_cols):
     anti_nodes = set()
     for a, pts in antennas.items():
-        for first in pts:
-            for second in pts:
-                if first == second:
+        for (r1, c1) in pts:
+            for (r2, c2) in pts:
+                if (r1, c1) == (r2, c2):
                     continue
-                anti_node = find_anti_node(
-                    first[0], first[1], second[0], second[1])
+                anti_node = find_anti_node(r1, c1, r2, c2)
                 if (anti_node[0] < 0 or anti_node[0] >= num_rows or anti_node[1] < 0 or anti_node[1] >= num_cols):
                     continue
                 anti_nodes.add(anti_node)
@@ -51,9 +50,7 @@ def part2(antennas, num_rows, num_cols):
             for (r2, c2) in pts:
                 if (r1, c1) == (r1, c2):
                     continue
-
-                multiple = 1
-                dr, dc = 0, 0
+                dr, dc, multiple = 0, 0, 1
                 while True:
                     dr, dc = find_anti_node(r1, c1, r2, c2, multiple)
                     if dr < 0 or dr >= num_rows or dc < 0 or dc >= num_cols:
