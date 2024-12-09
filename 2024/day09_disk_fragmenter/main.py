@@ -20,7 +20,6 @@ def get_memory(layout):
             memory.extend([None] * s)
 
         is_file = not is_file
-
     return memory
 
 
@@ -55,6 +54,8 @@ def part2(layout):
     data_blocks = []
     free_blocks = []
     file_id = 0
+    # Create parallel lists representing chunks
+    # of data, and the free space following it
     for b in batched(layout, 2):
         data_size, *rest = b
         empty_size = rest[0] if len(rest) == 1 else 0
@@ -63,22 +64,29 @@ def part2(layout):
         free_blocks.append([[], empty_size])
         file_id += 1
 
+    # Defragment
     candidate_id = len(data_blocks)
     while candidate_id > 1:
         candidate_id -= 1
         candidate_data = data_blocks[candidate_id]
+        candidate_len = len(candidate_data)
 
-        # find an empty block for this candidate
+        # Find a free block with enough space for current candidate
         for i in range(candidate_id):
-            if free_blocks[i][1] >= len(candidate_data):
-                free_blocks[i][0].extend(candidate_data)
-                free_blocks[i][1] -= len(candidate_data)
-                data_blocks[candidate_id] = [None] * len(candidate_data)
-                break
+            # Skip if this free block is too small to hold the candidate data
+            if free_blocks[i][1] < candidate_len:
+                continue
+
+            # Move candidate data into the free block, and update its size
+            free_blocks[i][0].extend(candidate_data)
+            free_blocks[i][1] -= candidate_len
+
+            # Null the original data block
+            data_blocks[candidate_id] = [None] * candidate_len
+            break
 
     # Calculate checksum
-    s = 0
-    pos = 0
+    s, pos = 0, 0
     for i in range(len(data_blocks)):
         for d in data_blocks[i]:
             s += (d or 0) * pos
