@@ -4,3 +4,4 @@ target/
 */input.txt
 node_modules/
 package-lock.json
+skip/
