@@ -9,7 +9,7 @@ class ClawMachine:
 
     def solve(self, unit_conversion_error=False):
         if unit_conversion_error:
-            self.prize = (self.prize[0]+10000000000000,
+            self.prize = (self.prize[0] + 10000000000000,
                           self.prize[1] + 10000000000000)
 
         a_m = self.a[1] / self.a[0]  # Slope A
