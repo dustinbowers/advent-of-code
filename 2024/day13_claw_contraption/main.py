@@ -1,5 +1,4 @@
 import argparse
-import re
 
 
 class ClawMachine:
@@ -26,9 +25,11 @@ class ClawMachine:
         intersection_y = intersection_x * a_m
         b = round((self.prize[1] - intersection_y) / self.b[1])
 
+        # Check solution
         if (a * self.a[0] + b * self.b[0] != self.prize[0]) \
                 or (a * self.a[1] + b * self.b[1] != self.prize[1]):
             return 0, 0, False
+
         return a, b, True
 
     def __repr__(self):
@@ -38,27 +39,33 @@ class ClawMachine:
 def read_input(filename):
     machines = []
     with open(filename, 'r') as file:
-        while True:
-            a_xy = re.findall(r"^Button A: X\+(\d+?), Y\+(\d+?)$",
-                              file.readline().strip())
-            b_xy = re.findall(r"^Button B: X\+(\d+?), Y\+(\d+?)$",
-                              file.readline().strip())
-            prize = re.findall(r"^Prize: X=(\d+?), Y=(\d+?)$",
-                               file.readline().strip())
+        lines = file.read().strip().split("\n")
 
-            machines.append(ClawMachine(
-                tuple(map(int, a_xy[0])),
-                tuple(map(int, b_xy[0])),
-                tuple(map(int, prize[0]))))
+    for i in range(0, len(lines), 4):
+        # Parse button A
+        button_a_line = lines[i].split(": ")[1]
+        ax, ay = button_a_line.split(", ")
+        ax = int(ax[2:])
+        ay = int(ay[2:])
 
-            if not file.readline():
-                break
+        # Parse button B
+        button_b_line = lines[i + 1].split(": ")[1]
+        bx, by = button_b_line.split(", ")
+        bx = int(bx[2:])
+        by = int(by[2:])
+
+        # Parse prize
+        prize_line = lines[i + 2].split(": ")[1]
+        px, py = prize_line.split(", ")
+        px = int(px[2:])
+        py = int(py[2:])
+
+        machines.append(ClawMachine((ax, ay), (bx, by), (px, py)))
 
     return machines
 
 
 def solve(machines):
-
     p1_total = 0
     p2_total = 0
     for m in machines:
@@ -67,7 +74,7 @@ def solve(machines):
         if solved:
             p1_total += a*3 + b
 
-        # Enable the "unit conversion error"
+        # Enable the "unit conversion error" for part 2
         a, b, solved = m.solve(True)
         if solved:
             p2_total += a * 3 + b
