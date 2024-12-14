@@ -12,6 +12,7 @@ class ClawMachine:
             self.prize = (self.prize[0] + 10000000000000,
                           self.prize[1] + 10000000000000)
 
+        # Geometric approach with back-substitution
         a_m = self.a[1] / self.a[0]  # Slope A
         b_m = self.b[1] / self.b[0]  # Slope B
         b_intercept = self.prize[1] - (b_m * self.prize[0])
