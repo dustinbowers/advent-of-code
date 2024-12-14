@@ -83,7 +83,7 @@ fn main() {
     let duration = start.elapsed();
 
     print!("Part1: {}\nPart2: {}\n", p1, p2);
-    println!("Execution time: {:?} µs", duration);
+    println!("Execution time: {:?}", duration);
 }
 
 
