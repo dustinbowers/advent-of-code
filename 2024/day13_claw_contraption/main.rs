@@ -5,14 +5,14 @@ use std::time::Instant;
 
 fn find_ab(ax: i64, ay: i64, bx: i64, by: i64, mut px: i64, mut py: i64, unit_conversion_error: bool) -> Option<i64> {
 
-    if unit_conversion_error {
-        px += 10000000000000;
-        py += 10000000000000;
-    }
-
     let det = ax * by - bx * ay;
     if det == 0 {
         return None;
+    }
+
+    if unit_conversion_error {
+        px += 10000000000000;
+        py += 10000000000000;
     }
 
     let det_a = px * by - bx * py;

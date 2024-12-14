@@ -3,7 +3,14 @@
 https://adventofcode.com/2024/day/13
 
 --
-
+#### Rust
+```
+❯ ./day05
+Part1: [redacted]
+Part2: [redacted]
+Execution time: 368.473µs
+```
+#### Python
 ```
 ❯ time python main.py
 Part1: p1 = [redacted]
