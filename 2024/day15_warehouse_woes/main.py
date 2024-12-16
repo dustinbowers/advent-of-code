@@ -63,8 +63,11 @@ def part1(grid_str, steps):
         d = DIRECTION_MAP[step]
         nr, nc = r + d[0], c + d[1]
 
+        # Immediately blocked, no movement
         if grid[nr][nc] == '#':
             continue
+
+        # Simple slide to adjacent free space
         if grid[nr][nc] == '.':
             grid[r][c] = '.'
             grid[nr][nc] = '@'
@@ -99,7 +102,7 @@ def part2(grid_str, steps):
         if grid[nr][nc] == '#':
             continue
 
-        # Simple left/right case
+        # Simple slide to adjacent free space
         if grid[nr][nc] == '.':
             grid[r][c] = '.'
             grid[nr][nc] = '@'
@@ -108,7 +111,9 @@ def part2(grid_str, steps):
 
         # Special cases
         ##################
-        if d[1] != 0:  # Push box(es) left/right
+
+        # Case 1: Push box(es) left/right
+        if d[1] != 0:
             peek_c = nc
 
             # Peek until we see a blank space or a wall
@@ -127,7 +132,8 @@ def part2(grid_str, steps):
             grid[r][c] = '.'
             c = nc
 
-        else:  # Vertically shift boxes
+        # Case 2: Vertically shift boxes
+        else:
 
             def get_shift_chain():
                 """
