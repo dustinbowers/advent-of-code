@@ -23,7 +23,7 @@ def part1(grid, blocks, num_corrupted):
 
     path = astar(grid, (0, 0), (WIDTH, HEIGHT))
 
-    return len(path)
+    return len(path)-1
 
 
 def part2(grid, blocks):
