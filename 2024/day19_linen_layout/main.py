@@ -2,15 +2,11 @@ import argparse
 
 
 def read_input(filename):
-    requested = []
-    patterns = []
     with open(filename, 'r') as file:
-        patterns = file.readline().strip().split(", ")
-        file.readline()
-
-        for line in file:
-            requested.append(line.strip())
-    return patterns, requested
+        input = file.read().split("\n\n")
+        patterns = input[0].strip().split(", ")
+        requested = input[1].split()
+        return patterns, requested
 
 
 def count_patterns(design, patterns, memo={}):
