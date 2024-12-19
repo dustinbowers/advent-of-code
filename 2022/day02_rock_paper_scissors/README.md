@@ -1,6 +1,6 @@
-# Day 1: Calorie Counting
+# Day 2: Rock Paper Scissors
 
-https://adventofcode.com/2022/day/1
+https://adventofcode.com/2022/day/2
 
 ```sh
 gleam run   # Run the project
