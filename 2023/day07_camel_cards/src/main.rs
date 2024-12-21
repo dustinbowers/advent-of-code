@@ -54,12 +54,10 @@ fn part2(input: &str) {
         total += (i + 1) as u64 * (h.bid as u64);
     }
 
-    // 247815719 -- Correct
     println!("Part 1, bid sum: {}", total);
 }
 
-fn rank_hand(hand : &str) -> u32 {
-
+fn rank_hand(hand: &str) -> u32 {
     let mut jokers = 0;
 
     let mut cards: HashMap<char, u32> = HashMap::new();
@@ -83,7 +81,7 @@ fn rank_hand(hand : &str) -> u32 {
     if l == 0 {
         hand_count = vec![jokers];
     } else {
-        hand_count[l-1] += jokers;
+        hand_count[l - 1] += jokers;
     }
 
     if hand_count == vec![1, 1, 1, 1, 1] {

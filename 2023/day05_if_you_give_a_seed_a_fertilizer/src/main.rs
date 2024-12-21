@@ -89,12 +89,12 @@ fn part1(input: String) {
     //
     // NAIVE Part 2
     let mut lowest_location = usize::MAX;
-    let len = seeds.len()/2;
+    let len = seeds.len() / 2;
     for i in 1..len {
-        let start = seeds[i-1];
+        let start = seeds[i - 1];
         let range = seeds[i];
         println!("i={} of {}: start = {}, range = {}", i, len, start, range);
-        for j in start..=start+range {
+        for j in start..=start + range {
             let soil = determine_mapping(&seed_to_soil, j);
             let fertilizer = determine_mapping(&soil_to_fertilizer, soil);
             let water = determine_mapping(&fertilizer_to_water, fertilizer);
@@ -109,13 +109,12 @@ fn part1(input: String) {
             }
         }
     }
-
 }
 
-fn determine_mapping(map : &Vec<(usize, usize, usize)>, source : usize) -> usize {
+fn determine_mapping(map: &Vec<(usize, usize, usize)>, source: usize) -> usize {
     // Find a destination range if one exists
     for ranges in map {
-        let (d, s, r)  = ranges;
+        let (d, s, r) = ranges;
         if source >= *s && source <= *s + *r {
             return *d + source - *s;
         }

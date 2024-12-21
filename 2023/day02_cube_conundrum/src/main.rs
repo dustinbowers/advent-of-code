@@ -1,7 +1,6 @@
 use std::fs;
 
 fn parse_digits(t_num: &str) -> String {
-    // Vec<u32> {
     t_num
         .chars()
         .filter_map(|a| a.to_digit(10))
@@ -24,10 +23,9 @@ fn main() {
         println!("game_num = {}\nmarble_str = {}", game_num, marble_str);
 
         let games: Vec<&str> = marble_str.split("; ").collect();
-        let mut is_correct: bool = true;
-        let mut max_red : u32 = 0;
-        let mut max_green : u32 = 0;
-        let mut max_blue : u32 = 0;
+        let mut max_red: u32 = 0;
+        let mut max_green: u32 = 0;
+        let mut max_blue: u32 = 0;
         for g in games {
             let parts: Vec<&str> = g.split(", ").collect();
             for p in parts {

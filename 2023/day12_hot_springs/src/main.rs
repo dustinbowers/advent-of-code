@@ -1,7 +1,4 @@
-
-fn part1(input : &str) {
-
-}
+fn part1(input: &str) {}
 
 fn main() {
     let input_filename = "input_example.txt";

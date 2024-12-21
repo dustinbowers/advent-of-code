@@ -61,8 +61,12 @@ fn part2(input: &str) {
             let d = directions[cycle_len % dir_len];
             let next_node = map.get(&n).unwrap();
             match d {
-                'L' => { n = next_node.0.clone(); },
-                'R' => { n = next_node.1.clone(); },
+                'L' => {
+                    n = next_node.0.clone();
+                }
+                'R' => {
+                    n = next_node.1.clone();
+                }
                 _ => {}
             }
             cycle_len += 1;

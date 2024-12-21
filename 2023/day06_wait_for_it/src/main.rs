@@ -1,20 +1,17 @@
 use std::fs;
 
-fn part1(input : &str) {
-
+fn part1(input: &str) {
     let (times, dists) = parse_lines(input);
 
     println!("Times = {:?}\nDistances = {:?}", times, dists);
-    let mut win_product : usize = 1;
+    let mut win_product: usize = 1;
     for (i, t) in times.iter().enumerate() {
-        let mut wins : usize = 0;
+        let mut wins: usize = 0;
         let target_dist = dists[i];
         for hold in 1..*t {
             let total_dist = calc_distance(hold, *t);
             if total_dist >= target_dist {
                 wins += 1;
-                // println!("Total time {}ms, holding for {}ms travels {}mm", *t, hold, total_dist);
-
             }
         }
         win_product *= wins;
@@ -22,8 +19,7 @@ fn part1(input : &str) {
     println!("\nPart 1, win product = {}\n", win_product);
 }
 
-fn part2(input : &str) {
-
+fn part2(input: &str) {
     let (time, dist) = parse_lines_into_numbers(input);
     println!("time = {}, dist = {}", time, dist);
 
@@ -60,16 +56,19 @@ fn part2(input : &str) {
         println!("right_bound of {} wins!", right_bound);
     }
 
-    println!("\nPart 2, possible solutions: {}\n", right_bound - left_bound + 1);
+    println!(
+        "\nPart 2, possible solutions: {}\n",
+        right_bound - left_bound + 1
+    );
 }
 
-fn calc_distance(hold_ms : usize, time : usize) -> usize {
+fn calc_distance(hold_ms: usize, time: usize) -> usize {
     let travel_time = time - hold_ms;
     let total_dist = travel_time * hold_ms;
     total_dist
 }
 
-fn parse_lines(input : &str) -> (Vec<usize>, Vec<usize>) {
+fn parse_lines(input: &str) -> (Vec<usize>, Vec<usize>) {
     let lines = input.lines().collect::<Vec<&str>>();
     let times = lines[0]
         .chars()
@@ -89,7 +88,7 @@ fn parse_lines(input : &str) -> (Vec<usize>, Vec<usize>) {
     (times, distances)
 }
 
-fn parse_lines_into_numbers(input : &str) -> (usize, usize) {
+fn parse_lines_into_numbers(input: &str) -> (usize, usize) {
     let lines = input.lines().collect::<Vec<&str>>();
     let times = lines[0]
         .chars()

@@ -11,7 +11,6 @@ fn get_card_matches(game_line: &str) -> (u32, u32) {
     let mut winning_map: HashMap<u32, ()> = HashMap::new();
     for n in winning_nums.split_whitespace().collect::<Vec<_>>() {
         let w = n.parse::<u32>().unwrap();
-        // println!("Insert winning number: {}", w);
         winning_map.insert(w, ());
     }
 
@@ -20,7 +19,6 @@ fn get_card_matches(game_line: &str) -> (u32, u32) {
         let k = n.parse::<u32>().unwrap();
         if winning_map.contains_key(&k) {
             matched_numbers += 1;
-            // println!("Winner matched: {}", k);
         }
     }
 
@@ -58,7 +56,6 @@ fn part2(input: &str) {
         );
         for i in 1..=matched_numbers {
             let winning_idx = card_num + i;
-            // let to_add = *current_copies;
             if !card_counts.contains_key(&winning_idx) {
                 card_counts.insert(winning_idx, 1);
             }

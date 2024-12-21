@@ -8,13 +8,7 @@ fn parse_input(input: &str) -> Vec<Vec<char>> {
         .map(|s| s.chars().collect::<Vec<char>>())
         .collect::<Vec<Vec<char>>>()
 }
-// fn print_field(field: &Vec<Vec<char>>) {
-//     field.iter().all(|line| {
-//         println!("{}", line.iter().collect::<String>());
-//         return true;
-//     });
-//     println!();
-// }
+
 fn calculate_weight(field: &Vec<Vec<char>>) -> usize {
     field.iter().rev().enumerate().fold(0, |acc, (r, line)| {
         line.iter().filter(|c| **c == 'O').count() * (r + 1) + acc

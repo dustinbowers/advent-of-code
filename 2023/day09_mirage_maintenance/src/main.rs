@@ -77,7 +77,6 @@ fn part2(input: &str) {
 
 fn main() {
     let input_filename = "input_test.txt";
-    // let input_filename = "input_example3.txt";
     let input = std::fs::read_to_string(input_filename).unwrap();
 
     part1(&input);
