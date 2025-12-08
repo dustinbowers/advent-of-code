@@ -3,9 +3,9 @@ class UnionFind:
         self.parent = list(range(size))
 
     def find(self, i):
-        if self.parent[i] == i:
-            return i
-        return self.find(self.parent[i])
+        if self.parent[i] != i:
+            self.parent[i] = self.find(self.parent[i])
+        return self.parent[i]
 
     def unite(self, i, j):
         irep = self.find(i)
@@ -16,7 +16,9 @@ class UnionFind:
         disjoint_sets = {}
         for i in range(len(self.parent)):
             root = self.find(i)
+
             if root not in disjoint_sets:
                 disjoint_sets[root] = []
             disjoint_sets[root].append(i)
+
         return list(disjoint_sets.values())
