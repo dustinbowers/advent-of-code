@@ -1,5 +1,9 @@
 # Advent of Code
 
+## 2025 - Python
+
+https://adventofcode.com/2025
+
 ## 2024 - Python et. al
 
 https://adventofcode.com/2024
